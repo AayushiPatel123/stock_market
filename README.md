@@ -1,3 +1,3 @@
 # stock_market
 
-live prediction of stock market close price
+Live prediction of stock market close price
