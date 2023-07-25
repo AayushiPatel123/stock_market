@@ -1,0 +1,235 @@
+{% extends 'header1.html'%}
+{% block content %}
+<meta charset="utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<title>Stock Market</title>
+
+<!-- import plugin script -->
+<script src='/static/js/Chart.min.js'></script>
+<style>
+  h3 {
+    width: 38%;
+    margin: auto;
+    padding: 15px 0;
+    background: rgba(0, 0, 0, 0.1);
+    color: black;
+    display: flex;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  input::placeholder {
+    width: 38%;
+    margin: auto;
+    padding: 15px 0;
+    /* background: rgba(0,0,0,0.1); */
+    color: black;
+    display: flex;
+    text-transform: uppercase;
+  }
+
+  .autocomplete-input {
+    color: aliceblue;
+    text-decoration: floralwhite;
+  }
+
+  .btn {
+    align-items: center;
+    -webkit-transition: all 150ms cubic-bezier(0.445, 0.050, 0.550, 0.950);
+  }
+
+  /* Navbar container */
+  .navbar {
+    overflow: hidden;
+    background-color: #333;
+    font-family: Arial;
+  }
+
+  /* Links inside the navbar */
+  .navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  /* The dropdown container */
+  .dropdown {
+    float: left;
+    overflow: hidden;
+  }
+
+  /* Dropdown button */
+  .dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    /* Important for vertical align on mobile phones */
+    margin: 0;
+    /* Important for vertical align on mobile phones */
+  }
+
+  /* Add a red background color to navbar links on hover */
+  .navbar a:hover,
+  .dropdown:hover .dropbtn {
+    background-color: red;
+  }
+
+  /* Dropdown content (hidden by default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  /* Add a grey background color to dropdown links on hover */
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+</style>
+
+<body><br><br><br>
+  <h3 style="align-items:center;width:max-content;padding:15px;">Prediction of Live Data</h3><br><br><br>
+
+ 
+  <h3 style="align-items:center;width:max-content;padding:15px;">Predicted Stock price of {{ticker_value}}</h3><br>
+  <!-- bar chart canvas element -->
+  <div class="row">
+    <div class="col s12">
+
+
+
+      <div class="container-fluid pt-4 px-4" style="margin-top: -25;">
+        <div class="row g-4">
+          <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary text-center rounded p-4">
+              <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">Recent Stock price of {{ticker_value}}</h6>
+                <a href="https://finance.yahoo.com/quote/{{ticker_value}}/chart?p={{ticker_value}}#">
+                  Show More
+                </a>
+              </div>
+              {% block Left_Plot %}
+
+              {% autoescape off %}
+              {{ plot_div }}
+              {% endautoescape %}
+
+              {% endblock Left_Plot %}
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="container-fluid pt-4 px-4" style="margin-top: -25;">
+        <div class="row g-4">
+          <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary text-center rounded p-4">
+              <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">Information</h6>
+                <a href="https://finance.yahoo.com/quote/{{ticker_value}}?p={{ticker_value}}">Show More</a>
+              </div>
+              <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                  <tbody>
+                    <tr>
+                      <td>Symbol</td>
+                      <td>{{Symbol}}</td>
+                    </tr>
+                    <tr>
+                      <td>Name</td>
+                      <td>{{Name}}</td>
+                    </tr>
+                    <tr>
+                      <td>Last Sale</td>
+                      <td>{{Last_Sale}}</td>
+                    </tr>
+                    <tr>
+                      <td>Net Change</td>
+                      <td>{{Net_Change}}</td>
+                    </tr>
+                    <tr>
+                      <td>Percent Change</td>
+                      <td>{{Percent_Change}}</td>
+                    </tr>
+                    <tr>
+                      <td>Market Capital</td>
+                      <td>{{Market_Cap}}</td>
+                    </tr>
+                    <tr>
+                      <td>Country</td>
+                      <td>{{Country}}</td>
+                    </tr>
+                    <tr>
+                      <td>IPO Year</td>
+                      <td>{{IPO_Year}}</td>
+                    </tr>
+                    <tr>
+                      <td>Volume</td>
+                      <td>{{Volume}}</td>
+                    </tr>
+                    <tr>
+                      <td>Sector</td>
+                      <td>{{Sector}}</td>
+                    </tr>
+                    <tr>
+                      <td>Industry</td>
+                      <td>{{Industry}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-sm-12 col-xl-2">
+            <div class="bg-secondary text-center rounded p-4">
+              <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">Scan the QR Code</h6>
+              </div>
+              
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://stock-prediction-system.herokuapp.com/predict/{{ticker_value}}/20/"
+                alt="QR CODE">
+            </div>
+          </div> -->
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</body>
+
+{% endblock%}

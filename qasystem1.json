@@ -1,0 +1,68 @@
+{"intents": [
+        {"tag": "greeting",
+         "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day"],
+         "responses": ["Hello", "Good to see you again", "Hi there, how can I help?"],
+         "context_set": ""
+        },
+        {"tag": "goodbye",
+         "patterns": ["Bye", "See you later", "Goodbye"],
+         "responses": ["See you later, thanks for visiting", "Have a nice day", "Bye! Come back again soon."],
+         "context_set": ""
+        },
+        {"tag": "thanks",
+         "patterns": ["Thanks", "Thank you", "Thats helpful"],
+         "responses": ["Happy to help!", "Any time!", "My pleasure"],
+         "context_set": ""
+        },
+        {"tag": "trade",
+         "patterns": ["Can I trade when markets are closed or shut down", "is share market open on Saturday?", "Is there any time for buying shares or doing a trade?" ],
+         "responses": ["You cannot trade after the market is closed or shut down.", "Even though trading no more requires physical presence it isn’t possible to trade after the market is shut down.", "You can only trade between 09:15 am to 3:30 pm, Stock markets in India remain closed on Saturday. The market also doesn't open for trading on Sunday and trading holidays."],
+         "context_set": ""
+        },
+        {"tag": "sectors",
+        "patterns": ["How many Sectors are there to invest in Stock Market?", "How many sectors in stock market"],
+        "responses": ["You can invest in 11 different sectors in the stock market.","11 sectors are present in stock market"],
+        "context_set": ""
+        },
+        {"tag": "beginner",
+         "patterns": ["Is it safe to invest in Unlisted Stocks as a beginner?"],
+         "responses": ["Yes you can trade but before that please grab some knowledge regarding stockmarket. Beginners often lack this knowledge and can incur losses."],
+         "context_set": ""
+        },
+        {"tag": "MIDCAP",
+         "patterns": ["What is MID CAP?", "MID CAP means?"],
+         "responses": ["Company's capitalization is calculated on the basis of the total number of its outstanding shares in the market multiplied by the current price per share.","Company's capitalization is calculated on the basis of the total number of its outstanding shares in the market multiplied by the current price per share."],
+         "context_set": ""
+        },
+        {"tag": "BSENSE",
+         "patterns": ["What are NSE?", "What are BSE"],
+         "responses": ["BSE (Bombay Stock Exchange) and islargest stock exchanges in India where shares of move then 5000 companies are traded. In simple term BSE / NSE provides a platform for investors to buy and sell the listed company shares.","NSE (National Stock Exchange) is largest stock exchanges in India where shares of move then 5000 companies are traded. In simple term NSE provides a platform for investors to buy and sell the listed company shares."],
+         "context_set": ""
+        },
+        {"tag": "Demat",
+         "patterns": ["Is Demat account required for Options Trading?"],
+         "responses": ["Options contracts in India are settled in cash and there are no deliveries involved. Whatever the profit/loss is settled in cash. The profit will be credited to your account and loss would be deducted from the trade value. So, a trader doesn't need a demat account for Options trading."],
+         "context_set": ""
+        },
+        {"tag": "stockshare",
+         "patterns": ["What is the difference between Stock and Share?"],
+         "responses": ["A stock and a share are essentially one and the same. They both represent a part of the capital of a joint stock company. In India it was always called shares whereas in the US they have been referred to as stocks. They essentially mean the same thing."],
+         "context_set": ""
+        },
+        {"tag": "stockmarket",
+         "patterns": ["What Is The Stock Market?"],
+         "responses": ["The term “stock market” often refers to the collection of markets and exchanges where regular activities of buying, selling, and issuance of shares take place. Simply put, the stock market enables buyers and sellers to make a trade of shares of publicly-listed companies."],
+         "context_set": ""
+        },
+        {"tag": "compare",
+         "patterns": ["I need to compare two stock"],
+         "responses": ["Please click on search stocks and seach any two company as you need!"],
+         "context_set": ""
+        },
+        {"tag": "single",
+         "patterns": ["I need single stock information"],
+         "responses": ["Please click on search stock menu and then click on Search Single Company Stock after that select any one interested company and click on submit button "],
+         "context_set": ""
+        }
+   ]
+}
