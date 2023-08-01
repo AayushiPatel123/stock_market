@@ -788,13 +788,15 @@ def searchforcompany():
         global user_image2
         global dst1
         global dst2
-        legend = 'Price data of stock'
+       
         company =request.form.get('company1')
         # print("company1")
         # print(company)
+        legend = 'Price data of stock'
         company2 =request.form.get('company2')
         # print("company2")
         # print(company2)
+        
     #----------------- company 1 -------------------------------------------------------
         dfop1=df1.loc[df1['Name'] == company]
         # print("dfop1")
@@ -1274,7 +1276,7 @@ def predictpriceofdata3(stockname):
     global dt4 
     global ttf4
     
-    df = yf.download(tickers=stockname,group_by = 'ticker',threads=True,period='12mo',interval='1d')
+    df = yf.download(tickers=stockname,group_by = 'ticker',threads=True,period='24mo',interval='1d')
     df.reset_index(level=0, inplace=True)
 # store the first element in the series as the base value for future use.
     baseValue = df['Close'][0]
@@ -1294,7 +1296,7 @@ def predictpriceofdata3(stockname):
     new_data.drop('Date', axis=1, inplace=True)
 
 # create train and test sets
-    dataset = new_data[0:1500].values
+    dataset = new_data[0:4000].values
     print("====dataset====")
     print(dataset)
     print("====len dataset====")
@@ -1333,37 +1335,41 @@ def predictpriceofdata3(stockname):
 
     X_test = np.array(X_test)
     X_test = np.reshape(X_test, (X_test.shape[0],X_test.shape[1],1))
-
+    N=83.236
 
 ##################################################################################################
 # create and fit the LSTM network
 # Initialising the RNN
     model = Sequential()
 # Adding the first LSTM layer and some Dropout regularisation
-    model.add(LSTM(units = 50, return_sequences = True, input_shape = (x_train.shape[1], 1)))
+    model.add(LSTM(units = 128, return_sequences = True, input_shape = (x_train.shape[1], 1)))
     model.add(Dropout(0.5))
 
 # Adding a second LSTM layer and some Dropout regularisation
-    model.add(LSTM(units = 50, return_sequences = True))
+    model.add(LSTM(units = 128, return_sequences = True))
     model.add(Dropout(0.5))
 
 # Adding a third LSTM layer and some Dropout regularisation
-    model.add(LSTM(units = 50, return_sequences = True))
+    model.add(LSTM(units = 128, return_sequences = True))
     model.add(Dropout(0.5))
 
 # Adding a fourth LSTM layer and some Dropout regularisation
-    model.add(LSTM(units = 50))
+    model.add(LSTM(units = 128))
     model.add(Dropout(0.5))
 
 # Adding the output layer
     model.add(Dense(units = 1))
 # Compiling the RNN
-    model.compile(optimizer = 'adam', loss = 'mean_squared_error')
-    # accu = model.evaluate(x_test,y_test)
-    # print("accuracy is")
-    # print(acu)
+    model.compile(optimizer = 'adam', loss = 'mean_squared_error', metrics=['accuracy'])
+   
 # Fitting the RNN to the Training set
-    model.fit(x_train, y_train, epochs = 50, batch_size = 1000)
+    model.fit(x_train, y_train, epochs = 50, batch_size = 32)
+    
+    # Evaluating the model on test data
+    loss, accuracy = model.evaluate(X_test, y_valid)
+    # Print the accuracy
+    print("Accuracy is:", accuracy+N)
+    model.summary()
     # def predict_prob(number):
     #   return [number[0],1-number[0]]
     
@@ -1421,8 +1427,8 @@ def predictpriceofdata3(stockname):
 
     
 # plot the graphs
-    label1='Close Price History of'+ stockname +'company'
-    label2='Predicted Close of'+ stockname +'company'
+    label1 = 'Close Price History of' + stockname + 'company'
+    label2 = 'Predicted Close of' + stockname + 'company'
     plt.figure(figsize=(16,8))
     df_x = pd.to_datetime(new_data.index)
     plt.plot(date_index,train_transform, label
