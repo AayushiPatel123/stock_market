@@ -2,7 +2,7 @@
 
 from flask import Flask,redirect,url_for
 from flask import render_template,request
-from datetime import time
+from datetime import time, timedelta
 import pandas as pd1
 import requests
 # from bs4 import BeautifulSoup
@@ -1276,7 +1276,14 @@ def predictpriceofdata3(stockname):
     global dt4 
     global ttf4
     
-    df = yf.download(tickers=stockname,group_by = 'ticker',threads=True,period='24mo',interval='1d')
+    # Set the date range from June 1, 2021, to June 30, 2023
+    start_date = '2021-06-01'
+    end_date = '2023-06-30'
+
+    
+    df = yf.download(tickers=stockname,group_by='ticker',threads=True,start=start_date, end=end_date, interval='1d')
+
+    #df = yf.download(tickers=stockname,group_by = 'ticker',threads=True,period='24mo',interval='1d')
     df.reset_index(level=0, inplace=True)
 # store the first element in the series as the base value for future use.
     baseValue = df['Close'][0]
